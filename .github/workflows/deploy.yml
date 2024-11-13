@@ -14,7 +14,7 @@ jobs:
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${ AWS_ACCESS_KEY_ID }
-          aws-secret-access-key: ${ secrets.AWS_SECRET_ACCESS_KEY }
+          aws-secret-access-key: ${ AWS_SECRET_ACCESS_KEY }
           aws-region: us-east-1
       - name: Login to Amazon ECR
         id: login-ecr
@@ -22,7 +22,7 @@ jobs:
       - name: Build and push Docker image
         env:
           ECR_REGISTRY: ${ steps.login-ecr.outputs.registry }
-          MONGO_URI: ${ secrets.MONGO_URI }
+          MONGO_URI: ${ MONGO_URI }
           ECR_REPOSITORY: mutant-dna-api
           IMAGE_TAG: latest
         run: |
