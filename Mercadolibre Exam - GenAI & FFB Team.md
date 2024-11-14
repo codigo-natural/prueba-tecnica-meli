@@ -1,6 +1,6 @@
 ### Mercadolibre Exam - GenAI & FFB Team
 
-Magneto wants to recruit as many mutants as possible to fight against the X-Men. He has hired you to develop a project to detect if a human is a mutant based on their DNA sequence. For that, he has asked you to create a program with a method or function with the following signature (in Python):
+Magneto wants to recruit as many mutants as possible to fight against the X-Men. He has hired you to develop a project to detect if a human is a mutant based on their DNA sequence. For that, he has asked you to create a program with a method or function with the following signature (in one of the following languages: Java / Golang / Python / Rust):
 
 ```python
 boolean isMutant(String[] dna);

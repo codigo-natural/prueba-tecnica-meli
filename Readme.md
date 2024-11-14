@@ -1,100 +1,24 @@
 ### Mercadolibre Exam - GenAI & FFB Team
-<p>
-Magneto wants to recrut as many mutants as possible to fight against the X-Men.
-He has hired you to develop a project to detect if a human is a mutant based on their DNA sequence.
-For that, he has asked you to create a program with a method or function with the following signature. (in Python)
-</p>
 
-```py
-boolean isMutant(String[] dna);
+para dar solucion al primer reto al final de la solucion del algoritmo deje unos casos de uso y unos test, donde probe la funcionalidad del algoritmo.
 
-isMutant(dna []string) bool
-is_mutant(dna)
-is_mutant(dna: &[&str]) -> bool
-```
-<p>
-In which you will receive as a parameter an array of Strings that represent each row of an (NxN) table with the DNA sequence. The letters in the Strings can only be: (A, T, C, G), which represent each nitrogenous base of DNA.
-</p>
+para el reto 2 y 3 deje el archivo `.env.example` donde añadie las variables de entorno, estas variables se deberian usar en el archivo `.env` si clonas el repositorio para que funcione correctamente. 
+Como base de datos use MongoDB, asi que si clonas el repositorio debes tener en cuenta traer la url de conexion de mongodb, si usas la pi que desplegue en aws hay lo podras probar sin problema, la url donde esta desplegada la api dentro de una instancia de EC2, la url de la API es la siguiente: 
+[Link api](http://54.227.19.120:3000/api)
 
-[
-  ['A''T''G''C''G''A']
-  ['C''A''G''T''G''C']
-  ['T''T''A''T''T''T']
-  ['A''G''A''G''G''G']
-  ['G''C''G''T''C''A']
-  ['T''C''A''C''T''G']
-]
-<P>no-mutant</P>
+para usar la API recuerda los endpoints:
 
-[
-  ['A''T''G''C''G''A']
-  ['C''A''G''T''G''C']
-  ['T''T''A''T''G''T']
-  ['A''G''A''A''G''G']
-  ['C''C''C''C''T''A']
-  ['T''C''A''C''T''G']
-]
-<p>mutant</p>
-
-<p>
-You will know if a human is a mutant if you find more than one sequence of our identical letters, either diagonally, horizontally, or vertically.
-</p>
-
-<p>
-Example (Mutant case):
-</p>
-```py
-String[] dna = {"ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"};
-```
-<P>
-In this case, calling the function `isMutant(dna)` returns `true`
-</P>
-
-> Develop the algorithm as efficiently as possible
-
-<strong>
-challenges:
-</strong>
-
-<strong>
-Level 1:
-</strong>
-<p>
-Create a program (in python) that meets the requirements given by Magneto.
-</p>
-
-<strong>
-Level 2:
-</strong>
-
-<p>
-Create a REST API, host this API on a free cloud computing service (Google App Engine, Amazon AWS, etc.), and create the "/mutant/" endpoint where it is possible to detect if a human is a mutant by sending the DNA sequence through an HTTP POST with a JSON in the following format:
-</p>
-
-```json
-POST - /mutant/
+- [GET] [GET stats](http://54.227.19.120:3000/api/stats)
+- [POST] [POST send dna to db](http://54.227.19.120:3000/api/mutant)
+en este caso para crear por ejemplo puedes testear en postman enviando en el body de la solicitud lo siguiente: 
+```JSON
 {
-  "dna": ["ATGCGA", "CAGTGC", "TTATGT", "AGAAGG", "CCCCTA", "TCACTG"]
-}
-```
-<p>
-if a mutant is detected, it should return an HTTP 200-OK; otherwise, it should return 402-Forbiden.
-</p>
-
-<strong>
-Level 3:
-</strong>
-<p>
-Add a database that stores the DNA sequences verified with the API
-</p>
-- Only one record per DNA secuence.
-- Expose an additional endpoint "/stats" that returns a JSON  with the DNA verification atatistics:
-
-```json
-{
-  "count_mutant_dna": 40,
-  "count_human_dna": 100,
-  "ratio": 0.4
+  "dna": ["TTAG","GATG","ATTT","ATTA","AGAT"]
 }
 ```
 
+en el ultimo reto, use AWS para desplegar la API use un servicio de AMazon llamado Amazon Elastic Container Registry (ECR) que us servicio que permite almacenar el codigo de la api en un contenedor de Docker que luego usare en el servico de EC2 donde me permite dejar a disposicion del publico la API.
+
+
+Como dato, no se pueden crear secuencias repetidas, por que estableci esa norma y dara error con un status 500, esto lo comento para que a la hora que realizes una solicitud post tengas en cuenta.
+Al hacer la peticion tipo GET ya cuenta con secuencias creadas en base de datos por lo cual nos da respuesta exitosa.
